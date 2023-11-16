@@ -1,12 +1,11 @@
 const bcryp = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { nanoid } = require('nanoid');
 
 const { User } = require('../models/user');
 
 const { HttpError, ctrlWrapper } = require('../helper');
 
-const { SEKRET_KEY, BASE_URL } = process.env;
+const { SEKRET_KEY } = process.env;
 
 const register = async (req, res) => {
    const { email, password } = req.body;
@@ -15,12 +14,16 @@ const register = async (req, res) => {
       throw HttpError(409, 'Email already exist');
    }
    const hashPassword = await bcryp.hash(password, 10);
-   const token = jwt.sign(payload, SEKRET_KEY, { expiresIn: '23h' });
    const newUser = await User.create({
       ...req.body,
       password: hashPassword,
-      token,
    });
+   const payload = {
+      id: newUser._id,
+   };
+   const token = jwt.sign(payload, SEKRET_KEY, { expiresIn: '23h' });
+   await User.findByIdAndUpdate(newUser._id, { token });
+
    res.status(201).json({
       nickName: newUser.nickName,
       email: newUser.email,
