@@ -1,0 +1,30 @@
+{
+   "name": "miraplay_test_server",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "start": "cross-env NODE_ENV=production node ./server.js",
+      "start:dev": "cross-env NODE_ENV=development nodemon ./server.js"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/t0xick1d/miraplay_test_server.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/t0xick1d/miraplay_test_server/issues"
+   },
+   "homepage": "https://github.com/t0xick1d/miraplay_test_server#readme",
+   "dependencies": {
+      "cors": "^2.8.5",
+      "cross-env": "^7.0.3",
+      "dotenv": "^16.3.1",
+      "express": "^4.18.2",
+      "mongoose": "^7.5.0",
+      "morgan": "^1.10.0",
+      "nodemon": "^3.0.1"
+   }
+}
